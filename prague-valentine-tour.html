@@ -109,7 +109,7 @@ h2.ttl{text-align:center;color:var(--navy);font-size:clamp(26px,4vw,38px);font-w
 .stop p{color:#475066;font-size:15px}
 .stop .story{margin-top:8px;background:#fdf6e9;border-inline-start:3px solid var(--gold);padding:8px 12px;border-radius:6px;font-size:14px;color:#6b5320}
 .stop img{width:128px;height:92px;object-fit:cover;border-radius:10px;cursor:zoom-in}
-@media(max-width:600px){.day .head{flex-wrap:wrap;padding:16px}.ovn{order:3;margin-inline-start:74px}.stop{grid-template-columns:1fr}.stop img{width:100%;height:170px;order:-1}.body{padding:4px 16px 16px}}
+@media(max-width:600px){.day .banner{height:150px}.day .head{display:grid;grid-template-columns:52px minmax(0,1fr) 22px;grid-template-areas:'num meta chev' 'num ovn chev';gap:8px 12px;align-items:start;padding:16px}.dnum{grid-area:num;width:52px;height:52px}.dnum b{font-size:20px}.dmeta{grid-area:meta}.dmeta h3{font-size:18px}.ovn{grid-area:ovn;justify-self:start;font-size:12px}.chev{grid-area:chev;align-self:center}.stop{grid-template-columns:1fr}.stop img{width:100%;height:170px;order:-1}.body{padding:4px 16px 16px}}
 
 /* Notes */
 .notes{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 24px;color:#475066;font-size:15px}
@@ -131,11 +131,6 @@ h2.ttl{text-align:center;color:var(--navy);font-size:clamp(26px,4vw,38px);font-w
 .formcard{position:relative}.hp{position:absolute;top:0;inset-inline-start:0;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none}
 
 /* Credits + footer */
-.credits{margin-top:60px;font-size:13px;color:var(--muted)}
-.credits summary{cursor:pointer;font-weight:700;color:var(--navy)}
-.credits ul{margin-top:10px;padding-inline-start:18px;columns:2;column-gap:28px}
-.credits a{color:var(--muted)}
-@media(max-width:600px){.credits ul{columns:1}}
 footer{margin-top:50px;background:var(--navy);color:#fff;padding:36px 0 100px}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:center}
 footer .fbrand{font-weight:800;font-size:18px}
@@ -244,12 +239,6 @@ footer .links a:hover{opacity:1;text-decoration:underline}
       <button class="btn" type="submit" id="send" data-t="send"></button>
       <div class="msg" id="msg"></div>
     </form>
-
-    <details class="credits">
-      <summary data-t="crT"></summary>
-      <p style="margin-top:8px" data-t="crP"></p>
-      <ul id="credits"></ul>
-    </details>
   </div>
 </section>
 
@@ -297,7 +286,6 @@ const IMG={
   crystal:'4/4a/Verres_en_cristal_de_Boh%C3%AAme_-_Prague.jpg'
 };
 const src=(k,w=1280)=>{const p=IMG[k];return W+'thumb/'+p+'/'+w+'px-'+p.split('/')[2]};
-const page=k=>'https://commons.wikimedia.org/wiki/File:'+IMG[k].split('/')[2];
 
 const ICON={
   plane:'<path d="M2 16l20-6-20-6 3 6-3 6zM5 10h9"/>',
@@ -355,7 +343,6 @@ ar:{
  fName:'الاسم الكامل',fPhone:'رقم الواتساب',fEmail:'البريد الإلكتروني',fPax:'عدد المسافرين',pax:['شخصان (زوجان)','4 أشخاص','أكثر من 4'],
  eName:'يرجى كتابة الاسم الكامل',ePhone:'يرجى كتابة رقم صحيح',eEmail:'يرجى كتابة بريد إلكتروني صحيح',
  send:'أرسل طلبي',sending:'جارٍ الإرسال...',ok:n=>'شكراً '+n+'! استلمنا طلبك وسيتواصل معك فريق المرجان قريباً.',fail:'تعذّر الإرسال. يرجى مراسلتنا مباشرة عبر واتساب.',
- crT:'مصادر الصور',crP:'الصور من مساهمي ويكيميديا كومنز وتُستخدم وفق تراخيص المشاع الإبداعي الخاصة بكل منها. اضغط على الاسم لعرض المصدر والترخيص.',
  city:'بغداد، العراق',waLbl:'راسلنا على واتساب',stick:'عيد الحب في براغ · 5 أيام',
  waMsg:'مرحباً، أرغب بالاستفسار عن رحلة عيد الحب في براغ 12–16 فبراير 2027'
 },
@@ -402,7 +389,6 @@ en:{
  fName:'Full name',fPhone:'WhatsApp number',fEmail:'Email',fPax:'Travellers',pax:['2 people (couple)','4 people','More than 4'],
  eName:'Please enter your full name',ePhone:'Please enter a valid phone number',eEmail:'Please enter a valid email',
  send:'Send my request',sending:'Sending...',ok:n=>'Thank you, '+n+'! We have received your request and the Al Merjan team will contact you shortly.',fail:'Sending failed. Please message us directly on WhatsApp.',
- crT:'Photo credits',crP:'Photos by Wikimedia Commons contributors, used under their respective Creative Commons licences. Tap a name to view the source and licence.',
  city:'Baghdad, Iraq',waLbl:'Chat with us on WhatsApp',stick:'Valentine\'s in Prague · 5 Days',
  waMsg:'Hello, I would like to ask about the Valentine\'s trip to Prague, 12–16 February 2027'
 },
@@ -449,7 +435,6 @@ ru:{
  fName:'Полное имя',fPhone:'Номер WhatsApp',fEmail:'Эл. почта',fPax:'Количество путешественников',pax:['2 человека (пара)','4 человека','Больше 4'],
  eName:'Пожалуйста, укажите полное имя',ePhone:'Пожалуйста, укажите корректный номер',eEmail:'Пожалуйста, укажите корректный e-mail',
  send:'Отправить заявку',sending:'Отправка...',ok:n=>'Спасибо, '+n+'! Мы получили вашу заявку, команда Al Merjan скоро с вами свяжется.',fail:'Не удалось отправить. Пожалуйста, напишите нам в WhatsApp.',
- crT:'Авторы фотографий',crP:'Фото участников Wikimedia Commons, используются по соответствующим лицензиям Creative Commons. Нажмите на название, чтобы открыть источник и лицензию.',
  city:'Багдад, Ирак',waLbl:'Напишите нам в WhatsApp',stick:'День влюблённых в Праге · 5 дней',
  waMsg:'Здравствуйте, хочу узнать о поездке ко Дню влюблённых в Прагу, 12–16 февраля 2027'
 }};
@@ -475,7 +460,6 @@ function render(lang){
     '<div class="body">'+d.stops.map(([s,h,p,k])=>{const story=s===T[lang].days[0].stops[2][0]||s===T[lang].days[3].stops[2][0];return '<div class="stop"><div><div class="slot">'+esc(s)+'</div><h4>'+esc(h)+'</h4>'+(story?'<p class="story">'+esc(p)+'</p>':'<p>'+esc(p)+'</p>')+'</div><img loading="lazy" src="'+src(k,500)+'" data-k="'+k+'" data-c="'+esc(h)+'" alt="'+esc(h)+'"></div>'}).join('')+'</div></article>').join('');
   $('#notes').innerHTML=t.notes.map(n=>'<li>'+esc(n)+'</li>').join('');
   const sel=$('#i-pax'),v=sel.selectedIndex; sel.innerHTML=t.pax.map(p=>'<option>'+esc(p)+'</option>').join(''); sel.selectedIndex=Math.max(0,v);
-  $('#credits').innerHTML=Object.keys(IMG).map(k=>'<li><a href="'+page(k)+'" target="_blank" rel="noopener">'+decodeURIComponent(IMG[k].split('/')[2]).replace(/_/g,' ')+'</a></li>').join('');
   const wa='https://wa.me/'+WA+'?text='+encodeURIComponent(t.waMsg);
   $('#waFloat').href=wa; $('#waFoot').href=wa;
   try{localStorage.setItem('mjLang',lang)}catch(e){}
